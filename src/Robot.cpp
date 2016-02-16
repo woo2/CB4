@@ -25,9 +25,9 @@ private:
     int auto_server, r_enc, l_enc;
     std::string autoSelected;
 
-    DoubleSolenoid *piston = new DoubleSolenoid (0, 1);
+    DoubleSolenoid *piston  = new DoubleSolenoid (0, 1);
     DoubleSolenoid *piston1 = new DoubleSolenoid (2, 3);
-    Compressor *howdy = new Compressor (0);	//comnpressor does not like the term compress or compressor
+    Compressor *howdy       = new Compressor (0);	//comnpressor does not like the term compress or compressor
 
     //USBCamera *cam2 =new USBCamera("cam2",1);
     IMAQdxSession session;
@@ -35,35 +35,37 @@ private:
     IMAQdxError imaqError;
 
     Joystick *rightDrive = new Joystick (0, 2, 9);	//DrC
-    Joystick *leftDrive = new Joystick (1, 2, 9);	//DrC
-    Joystick *gamePad = new Joystick (2, 6, 9);	//DrC
+    Joystick *leftDrive  = new Joystick (1, 2, 9);	//DrC
+    Joystick *gamePad    = new Joystick (2, 6, 9);	//DrC
 
-    Talon *fRight = new Talon (1);	// remaped all talons E and DrC
-    Talon *fLeft = new Talon (0);
-    Talon *bRight = new Talon (2);
-    Talon *bLeft = new Talon (3);
-    Talon *pickup = new Talon (4);	// pickup
+    Talon *fRight  = new Talon (1);	// remaped all talons E and DrC
+    Talon *fLeft   = new Talon (0);
+    Talon *bRight  = new Talon (2);
+    Talon *bLeft   = new Talon (3);
+    Talon *pickup  = new Talon (4);	// pickup
     Talon *shooter = new Talon (5);	// main shooterwheel
 
-    AnalogInput *Bx = new AnalogInput (0);	//DrC  magnetic x component
-    AnalogInput *By = new AnalogInput (1);	//DrC  magnetic y component
+    AnalogInput *Bx    = new AnalogInput (0);	//DrC  magnetic x component
+    AnalogInput *By    = new AnalogInput (1);	//DrC  magnetic y component
     AnalogInput *Photo = new AnalogInput (2);	//DrC  photodiode response
+
     BuiltInAccelerometer *accel = new BuiltInAccelerometer ();	//DrC what it is...what it is...
 
-    DigitalOutput *led1 = new DigitalOutput (4);	//DrC triggerline for the structured lightfield
+    DigitalOutput *led1  = new DigitalOutput (4);	//DrC triggerline for the structured lightfield
     DigitalOutput *leds1 = new DigitalOutput (9);	//status 1
     DigitalOutput *leds2 = new DigitalOutput (8);	//status 2
 
     Encoder *shooterwheel = new Encoder (0, 1);
-    Encoder *rwheel = new Encoder (2, 3);
-    Encoder *lwheel = new Encoder (4, 5);
+    Encoder *rwheel       = new Encoder (2, 3);
+    Encoder *lwheel       = new Encoder (4, 5);
 
     SmartDashboard *auto_selector = new SmartDashboard ();	// E Simplicity for me to easy call functions
 
     DriverStation::Alliance Team;	// I have no Idea why but I seem only able to get the variable to work this way
 
-    RobotDrive *robotDrive = new RobotDrive (fLeft, bLeft, fRight, bRight);
+    RobotDrive *robotDrive    = new RobotDrive (fLeft, bLeft, fRight, bRight);
     RobotDrive *pickupShooter = new RobotDrive (pickup, pickup, shooter, shooter);	//***
+
     void AutonomousInit () {
         auto_selector->PutNumber ("How Shall I Drive Myself Sire?", 0);	// Adds a Auto code selector on boot up 1-2 no change defaults to 0
         SmartDashboard::PutNumber ("Drive", 0);
@@ -185,25 +187,25 @@ private:
     //cam3->SetWhiteBalanceAuto();
 
     // calibration data  -from DrC
-    boffsetx = 1.4;
-    boffsety = 1.2;
-    bscalex = 1.0;
-    bscaley = 1.0;
+    boffsetx   = 1.4;
+    boffsety   = 1.2;
+    bscalex    = 1.0;
+    bscaley    = 1.0;
     baveraging = 0.02;		//running averaging in B field determination
-    bx_avg = 0.0;
-    by_avg = 0.0;
-    samples = 20;		//Dr.C.  for the number of stobes cycles used during phase sensitive detection.
-    savg = .3;			//Dr.C. for averaging the noise out of the shot wheel speed encoder.
-    shotspeed = 0.0;
-    starget = .7;		//DrC target speed for the shooterwheels encoder output
-    swindow = .1;		// window (percent) of starget to be good to fire ball! here .1 = 10percent
-    speed = .6;			//driving speed for finer control
+    bx_avg     = 0.0;
+    by_avg     = 0.0;
+    samples    = 20;		//Dr.C.  for the number of stobes cycles used during phase sensitive detection.
+    savg       = .3;			//Dr.C. for averaging the noise out of the shot wheel speed encoder.
+    shotspeed  = 0.0;
+    starget    = .7;		//DrC target speed for the shooterwheels encoder output
+    swindow    = .1;		// window (percent) of starget to be good to fire ball! here .1 = 10percent
+    speed      = .6;			//driving speed for finer control
 
-    shooterwheel->Reset ();
-    rwheel->Reset ();
-    howdy->Enabled ();
-    piston1->Set (DoubleSolenoid::Value::kOff);
-    piston->Set (DoubleSolenoid::Value::kOff);
+    shooterwheel->Reset();
+    rwheel->Reset();
+    howdy->Enabled();
+    piston1->Set(DoubleSolenoid::Value::kOff);
+    piston->Set(DoubleSolenoid::Value::kOff);
     ramp_act = 0;
 
   }
@@ -217,7 +219,8 @@ private:
     button_led = gamePad->GetRawButton (1);
 
     rightgo = -(speed + (1.0 - speed) * (double) (nitroR)) * rightgo;	//DrC for nitro drive
-    leftgo = -(speed + (1.0 - speed) * (double) (nitroL)) * leftgo;	//DrC  ''
+    leftgo  = -(speed + (1.0 - speed) * (double) (nitroL)) * leftgo;	//DrC  ''
+
     robotDrive->TankDrive (rightgo, leftgo);
 
     if (nitroR && nitroL) {
@@ -256,16 +259,19 @@ private:
     // end of Strobey bit
     // Pickupwheel section
     pickup_kickballout = gamePad->GetRawAxis (2);	//DrC
-    pickup_pickup = gamePad->GetRawButton (5);	//DrC
-    swheelspeed = shooterwheel->GetRate ();	//DrC , gets the signed speed of the shaft. Verified operation with the AMT103-V capacitive sensors, but probably works fine with the optical encoder.
-    shotspeed = shotspeed * (1.0 - savg) + savg * swheelspeed;
+    pickup_pickup      = gamePad->GetRawButton (5);	//DrC
+    swheelspeed        = shooterwheel->GetRate ();	//DrC , gets the signed speed of the shaft. Verified operation with the AMT103-V capacitive sensors, but probably works fine with the optical encoder.
+    shotspeed          = shotspeed * (1.0 - savg) + savg * swheelspeed;
+
     if (abs (shotspeed - starget) / starget < swindow) {
 	    speedgood = TRUE;
     }
     else {
 	    speedgood = FALSE;
     }
+
     rwheel->GetRaw ();
+
     if (abs (pickup_kickballout) > .1) {				//DrC
 	    pickupWheel = 0.7;
     }
@@ -275,10 +281,12 @@ private:
     else {
 	    pickupWheel = 0.0;
     }
+
     // right bumper speed up the wheel, right trigger  to shoot.
-    piston_button = rightDrive->GetRawButton (1);	//E
-    shooter_shoot = gamePad->GetRawAxis (3);	//DrC
+    piston_button  = rightDrive->GetRawButton (1);	//E
+    shooter_shoot  = gamePad->GetRawAxis (3);	//DrC
     shooter_spinup = gamePad->GetRawButton (6);
+
     if ((abs (shooter_shoot) > .1) && (speedgood)) {				//DrC, (bool)speedgood indicates at within window around target speed.
 	    shooterWheel = -1.0;
     }
@@ -305,9 +313,11 @@ private:
     pd = Photo->GetVoltage ();	//DrC
     // here flatten response and assume that robot is level.
     bx = (bx - boffsetx) * bscalex;	//DrC
-    bx_avg = bx_avg * (1.0 - baveraging) + bx * baveraging;	//Dr. C
     by = (by - boffsety) * bscaley;	//DrC
+
+    bx_avg = bx_avg * (1.0 - baveraging) + bx * baveraging;	//Dr. C
     by_avg = by_avg * (1.0 - baveraging) + by * baveraging;	// Dr. C.
+
     heading = 180 * atan (by_avg / bx_avg) / pi;	//DrC
 
     // grab an image, draw the circle, and provide it for the camera server which will
@@ -336,7 +346,7 @@ private:
     SmartDashboard::PutNumber ("bx", bx_avg);
     SmartDashboard::PutNumber ("by", by_avg);
 
-    SmartDashboard::PutData ("rwheel", rwheel);	//DrC this example gets data from pointer to method
+    SmartDashboard::PutData   ("rwheel", rwheel);	//DrC this example gets data from pointer to method
     SmartDashboard::PutNumber ("shooterwheel", shotspeed);
     SmartDashboard::PutNumber ("quality", quality);	//tells the camEra qyuality
     //SmartDashboard::PutNumber("rightgo",rightgo); //DrC
@@ -345,6 +355,7 @@ private:
     //SmartDashboard::PutNumber("Shooterwheelaxis", shooter_shoot);
 
   }
+
   void TestPeriodic ()
   {
     lw->Run ();
